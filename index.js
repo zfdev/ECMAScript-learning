@@ -109,12 +109,12 @@
 // let {id, status, data: number } = jsonData;
 // console.log(id, status, number);
 
-var ajax = function(url, {
+let ajax = function(url, {
     async = true,
     beforeSend = function(){},
     cache = true
 }={}){
-
+    
 }
 
 const map = new Map();
@@ -132,3 +132,5 @@ for(let [,value] of map){
 //const {SourceMap, SourceNode} = require('source-map');
 //const SourceMap = require('source-map').SourceMap;
 //const SourceNode = require('source-map').SourceNode;
+
+const 

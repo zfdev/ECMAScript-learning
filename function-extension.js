@@ -11,7 +11,7 @@ let debug = function (name, ...args) {
 //     this.x = x;
 //     this.y = y;
 // }
-// const testPoint = new Point();
+// const testPoint = new Point();，，
 // debug(testPoint);
 
 // function foo({ x, y = 5 } = {}) {

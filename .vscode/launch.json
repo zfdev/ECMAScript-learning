@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/function-extension.js"
+            "program": "${workspaceFolder}/array-extension.js"
         }
     ]
 }
