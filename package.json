@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/zfdev/ECMAScript-learning/issues"
   },
-  "homepage": "https://github.com/zfdev/ECMAScript-learning#readme"
+  "homepage": "https://github.com/zfdev/ECMAScript-learning#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "thunkify": "^2.1.2"
+  }
 }

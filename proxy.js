@@ -116,3 +116,5 @@ let testConstructor = new Proxy(function(){}, {
 debug((new testConstructor(1)).value);
 
 //###this problem
+//this指向的是proxy内部
+//
