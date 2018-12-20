@@ -150,7 +150,7 @@ printName();
 //this指向的是类本身，而不是类的实例
 class StaticMethodClass {
     constructor(){
-        this.name = this.name.bind(this);
+        this.staticMethod = this.staticMethod.bind(this);
     }
     static staticMethod(){
         return 'Static method message ' + this.name();
