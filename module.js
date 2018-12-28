@@ -195,20 +195,63 @@ async function main(){
 }
 
 //Module加载实现
+//
 
 //#浏览器
+//默认情况下，浏览器是同步加载javascript脚本的，当遇到script标签就会停下来
+//等待执行完脚本，再继续向下渲染
 
+//异步加载脚本,script标签提供了defer和async属性，浏览器在解析的时候，会异步加载脚本
+//defer (渲染完再执行) 等到dom渲染完成才会执行
+<script scr="path/myModule.js" defer></script>
 
-//#ES6模块
+//async (下载完就执行) 一旦下载完成，浏览器引起就会终端渲染，执行这个脚本，再继续渲染。
+<script scr="path/myModule.js" async></script>
 
+//#ES6模块,都是异步加载，相当于使用了defer属性
+<script type="module" src="./foo.js"></script>
+//利用顶层的this等于undefined这个语法点，可以侦测当前代码是否在 ES6 模块之中。
+//const isNotModuleScript = this !== undefined;
 
 //#CommonJS模块
+//CommonJS模块输出的是一个值的拷贝, 运行时加载，一旦输出一个值的copy，模块内部的变化就不能影响到这个值
+//ES6模块输出的是值的引用，模块编译时输出接口，ES6不会缓存值，模块里的变量绑定在其所在的模块,是一个指针地址，而且是只读的，不能在模块外部重新赋值。export通过接口，输出的是同一个值。不同的脚本加载这个接口，得到的都是同样的实例。
+// m1.js
+export var foo = 'bar';
+setTimeout(() => foo = 'baz', 500);
 
+// m2.js
+import {foo} from './m1.js';
+console.log(foo);
+setTimeout(() => console.log(foo), 500);
 
 //#Node加载
+//Node 要求 ES6 模块采用.mjs后缀文件名。也就是说，只要脚本文件里面使用import或者export命令，那么就必须采用.mjs后缀名。require命令不能加载.mjs文件，会报错，只有import命令才可以加载.mjs文件。
+//Node的import命令只支持加载本地模块，file，不支持远程加载模块。
+//如果模块名不包含路径,那么import命令会去node_modules目录去寻找这个模块
+//如果模块名包含路径，那么import就会按照路径去寻找这个名字的脚本文件
+//如果脚本文件省略了后缀名，比如import './foo'，Node 会依次尝试四个后缀名：./foo.mjs、./foo.js、./foo.json、./foo.node。如果这些脚本文件都不存在，Node 就会去加载./foo/package.json的main字段指定的脚本。如果./foo/package.json不存在或者没有main字段，那么就会依次加载./foo/index.mjs、./foo/index.js、./foo/index.json、./foo/index.node。如果以上四个文件还是都不存在，就会抛出错误。
+
+
+//在ES6模块中不存在的顶层变量
+arguments
+require
+module
+exports
+__dirname
+__filename
+
+
+//ES6 模块加载 CommonJS 模块
+//import命令加载上面的模块，module.exports会被视为默认输出，即import命令实际上输入的是这样一个对象{ default: module.exports }。
 
 
 //循环加载
+//CommonJS 模块的循环加载
+//由于 CommonJS 模块遇到循环加载时，返回的是当前已经执行的部分的值，而不是代码全部执行后的值
+//ES6 模块的循环加载
+//
 
 
 //#ES6 模块转码
+//浏览器目前还不支持 ES6 模块，为了现在就能使用，可以将转为 ES5 的写法。除了 Babel 可以用来转码之外
